@@ -81,6 +81,7 @@ namespace DotNetSurfer_Backend.API.Helpers
 
         public static void AddAspDotNetCoreServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddControllers();
             // To avoid loop between primary and foreign keys
             services.AddMvc().AddNewtonsoftJson(options =>
             {
