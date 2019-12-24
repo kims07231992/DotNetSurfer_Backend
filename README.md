@@ -4,6 +4,8 @@
 
 .NETSurfer Backend is an API using ASP.NET Core 3.0
 
+https://dotnetsurferbackend.azurewebsites.net
+
 Swagger Page
 
 ![Alt text](https://github.com/kims07231992/DotNetSurfer_Backend/blob/master/README_Picture2.PNG)
@@ -20,6 +22,7 @@ Swagger Page
 * Consistent HttpResponse handling
 * Exception handling with user-define exception
 * Image resource management with CDN
+* Running on linux container using Docker
 
  
 ## Stacks
@@ -30,5 +33,6 @@ Swagger Page
 * JWT Authentication
 * Swagger
 * xUnit
+* Docker
 * Azure Blob
 * Azure Depolyment
