@@ -22,6 +22,7 @@ namespace DotNetSurfer_Backend.API
             services.AddDatabaseServices(this.Configuration);
             services.AddAuthenticationServices(this.Configuration);
             services.AddAspDotNetCoreServices(this.Configuration);
+            services.AddNLog(this.Configuration);
             services.AddSwagger();
         }
 

@@ -21,6 +21,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using NLog;
 using System;
 using System.Text;
 using LogManager = DotNetSurfer_Backend.Core.Managers.LogManager;
@@ -100,6 +101,11 @@ namespace DotNetSurfer_Backend.API.Helpers
             });
         }
 
+        public static void AddNLog(this IServiceCollection services, IConfiguration configuration)
+        {
+            GlobalDiagnosticsContext.Set("DefaultConnection", configuration.GetConnectionString("DefaultConnection"));
+        }
+
         public static void AddSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
@@ -127,7 +133,6 @@ namespace DotNetSurfer_Backend.API.Helpers
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
-            //app.UseMvc();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
