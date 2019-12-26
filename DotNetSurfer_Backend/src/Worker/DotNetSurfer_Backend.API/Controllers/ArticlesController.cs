@@ -33,11 +33,6 @@ namespace DotNetSurfer_Backend.API.Controllers
 
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new CustomArgumentException(ModelState.ToString());
-                }
-
                 article = await this._articleManager.GetArticle(id);
             }
             catch (CustomUnauthorizedException ex)
@@ -68,11 +63,6 @@ namespace DotNetSurfer_Backend.API.Controllers
 
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new CustomArgumentException(ModelState.ToString());
-                }
-
                 article = await this._articleManager.GetArticleDetail(id);
             }
             catch (CustomUnauthorizedException ex)

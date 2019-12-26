@@ -25,11 +25,6 @@ namespace DotNetSurfer_Backend.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new CustomArgumentException(ModelState.ToString());
-                }
-
                 await this._userManager.SignUp(model);
             }
             catch (CustomUnauthorizedException ex)

@@ -27,11 +27,6 @@ namespace DotNetSurfer_Backend.API.Controllers
 
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new CustomArgumentException(ModelState.ToString());
-                }
-
                 topic = await this._topicManager.GetTopic(id);
             }
             catch (CustomUnauthorizedException ex)

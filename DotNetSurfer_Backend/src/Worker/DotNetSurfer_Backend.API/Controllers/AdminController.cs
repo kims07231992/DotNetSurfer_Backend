@@ -26,11 +26,6 @@ namespace DotNetSurfer_Backend.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new CustomArgumentException(ModelState.ToString());
-                }
-
                 await this._adminManager.UpdateTopic(id, topic, User);
             }
             catch (CustomUnauthorizedException ex)
@@ -59,11 +54,6 @@ namespace DotNetSurfer_Backend.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new CustomArgumentException(ModelState.ToString());
-                }
-
                 await this._adminManager.CreateTopic(topic);
             }
             catch (CustomUnauthorizedException ex)
@@ -92,11 +82,6 @@ namespace DotNetSurfer_Backend.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new CustomArgumentException(ModelState.ToString());
-                }
-
                 await this._adminManager.DeleteTopic(id, User);
             }
             catch (CustomUnauthorizedException ex)
@@ -127,11 +112,6 @@ namespace DotNetSurfer_Backend.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new CustomArgumentException(ModelState.ToString());
-                }
-
                 await this._adminManager.UpdateArticle(id, article, User);
             }
             catch (CustomUnauthorizedException ex)
@@ -160,11 +140,6 @@ namespace DotNetSurfer_Backend.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new CustomArgumentException(ModelState.ToString());
-                }
-
                 await this._adminManager.CreateArticle(article);
             }
             catch (BaseCustomException ex)
@@ -185,11 +160,6 @@ namespace DotNetSurfer_Backend.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new CustomArgumentException(ModelState.ToString());
-                }
-
                 await this._adminManager.DeleteArticle(id, User);
             }
             catch (CustomUnauthorizedException ex)
@@ -220,11 +190,6 @@ namespace DotNetSurfer_Backend.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new CustomArgumentException(ModelState.ToString());
-                }
-
                 await this._adminManager.UpdateAnnouncement(id, announcement, User);
             }
             catch (CustomUnauthorizedException ex)
@@ -253,11 +218,6 @@ namespace DotNetSurfer_Backend.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new CustomArgumentException(ModelState.ToString());
-                }
-
                 await this._adminManager.CreateAnnouncement(announcement);
             }
             catch (CustomUnauthorizedException ex)
@@ -286,11 +246,6 @@ namespace DotNetSurfer_Backend.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new CustomArgumentException(ModelState.ToString());
-                }
-
                 await this._adminManager.DeleteAnnouncement(id, User);
             }
             catch (CustomUnauthorizedException ex)
@@ -321,11 +276,6 @@ namespace DotNetSurfer_Backend.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new CustomArgumentException(ModelState.ToString());
-                }
-
                 await this._adminManager.UpdateUser(id, user, User);
             }
             catch (CustomUnauthorizedException ex)

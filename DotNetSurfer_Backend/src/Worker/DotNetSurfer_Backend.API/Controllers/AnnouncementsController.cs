@@ -27,11 +27,6 @@ namespace DotNetSurfer_Backend.API.Controllers
 
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new CustomArgumentException(ModelState.ToString());
-                }
-
                 announcement = await this._announcementManager.GetAnnouncement(id);
             }
             catch (CustomUnauthorizedException ex)

@@ -27,11 +27,6 @@ namespace DotNetSurfer_Backend.API.Controllers
 
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    throw new CustomArgumentException(ModelState.ToString());
-                }
-
                 user = await this._profileManager.GetUser(id, User);
             }
             catch (CustomUnauthorizedException ex)
