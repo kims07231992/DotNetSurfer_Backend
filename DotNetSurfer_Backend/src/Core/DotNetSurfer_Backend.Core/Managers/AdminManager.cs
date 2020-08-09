@@ -8,6 +8,7 @@ using DotNetSurfer_Backend.Core.Exceptions;
 using DotNetSurfer_Backend.Core.Interfaces.Repositories;
 using DotNetSurfer_Backend.Core.Models;
 using DotNetSurfer_Backend.Core.Extensions;
+using DotNetSurfer_Backend.Core.Interfaces.Caches;
 
 namespace DotNetSurfer_Backend.Core.Managers
 {
@@ -15,8 +16,12 @@ namespace DotNetSurfer_Backend.Core.Managers
     {
         private readonly IEncryptor _encryptor;
 
-        public AdminManager(IUnitOfWork unitOfWork, IEncryptor encryptor, ILogger<AdminManager> logger)
-            : base(unitOfWork, logger)
+        public AdminManager(
+            IEncryptor encryptor,
+            IUnitOfWork unitOfWork,
+            ICacheDataProvider cacheDataProvider,
+            ILogger<AdminManager> logger
+            ) : base(unitOfWork, cacheDataProvider, logger)
         {
             this._encryptor = encryptor;
         }

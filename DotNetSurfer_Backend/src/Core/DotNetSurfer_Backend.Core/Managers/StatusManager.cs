@@ -7,13 +7,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DotNetSurfer_Backend.Core.Exceptions;
+using DotNetSurfer_Backend.Core.Interfaces.Caches;
 
 namespace DotNetSurfer_Backend.Core.Managers
 {
     public class StatusManager : BaseManager<StatusManager>, IStatusManager
     {
-        public StatusManager(IUnitOfWork unitOfWork, ILogger<StatusManager> logger)
-           : base(unitOfWork, logger)
+        public StatusManager(
+            IUnitOfWork unitOfWork,
+            ICacheDataProvider cacheDataProvider,
+            ILogger<StatusManager> logger
+            ) : base(unitOfWork, cacheDataProvider, logger)
         {
         }
 
@@ -23,10 +27,14 @@ namespace DotNetSurfer_Backend.Core.Managers
 
             try
             {
-                var entityModels = await this._unitOfWork.StatusRepository
-                    .GetStatusesAsync();
+                statuses = await _cacheDataProvider.TryGetStatusesAsync();
+                if (statuses == null)
+                {
+                    var entityModels = await this._unitOfWork.StatusRepository.GetStatusesAsync();
+                    statuses = entityModels?.Select(s => s);
 
-                statuses = entityModels?.Select(s => s);
+                    await _cacheDataProvider.SetStatusesAsync(statuses);
+                }
             }
             catch (BaseCustomException ex)
             {

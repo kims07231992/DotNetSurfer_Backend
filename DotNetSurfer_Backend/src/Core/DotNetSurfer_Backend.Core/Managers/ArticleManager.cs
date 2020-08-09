@@ -8,13 +8,17 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using DotNetSurfer_Backend.Core.Exceptions;
+using DotNetSurfer_Backend.Core.Interfaces.Caches;
 
 namespace DotNetSurfer_Backend.Core.Managers
 {
     public class ArticleManager : BaseManager<ArticleManager>, IArticleManager
     {
-        public ArticleManager(IUnitOfWork unitOfWork, ILogger<ArticleManager> logger)
-             : base(unitOfWork, logger)
+        public ArticleManager(
+            IUnitOfWork unitOfWork,
+            ICacheDataProvider cacheDataProvider, 
+            ILogger<ArticleManager> logger
+            ) : base(unitOfWork, cacheDataProvider, logger)
         {
 
         }
@@ -123,11 +127,17 @@ namespace DotNetSurfer_Backend.Core.Managers
 
             try
             {
-                var entityModels = await this._unitOfWork
-                    .ArticleRepository
-                    .GetArticlesByPageAsync(pageId, itemPerPage);
+                articles = await _cacheDataProvider.TryGetArticlesByPageAsync(pageId);
+                if (articles == null)
+                {
+                    var entityModels = await this._unitOfWork
+                        .ArticleRepository
+                        .GetArticlesByPageAsync(pageId, itemPerPage);
 
-                articles = entityModels?.Select(a => a);
+                    articles = entityModels?.Select(a => a);
+
+                    await _cacheDataProvider.SetArticlesByPageAsync(articles, pageId);
+                }
             }
             catch (BaseCustomException ex)
             {
@@ -149,11 +159,17 @@ namespace DotNetSurfer_Backend.Core.Managers
 
             try
             {
-                var entityModels = await this._unitOfWork
-                    .ArticleRepository
-                    .GetTopArticlesAsync(itemPerPage, cardContentLength);
+                articles = await _cacheDataProvider.TryGetTopArticlesAsync();
+                if (articles == null)
+                {
+                    var entityModels = await this._unitOfWork
+                        .ArticleRepository
+                        .GetTopArticlesAsync(itemPerPage, cardContentLength);
 
-                articles = entityModels?.Select(a => a);
+                    articles = entityModels?.Select(a => a);
+
+                    await _cacheDataProvider.SetTopArticlesAsync(articles);
+                }
             }
             catch (BaseCustomException ex)
             {

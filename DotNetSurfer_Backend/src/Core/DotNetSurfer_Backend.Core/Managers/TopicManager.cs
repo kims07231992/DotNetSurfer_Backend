@@ -4,18 +4,22 @@ using DotNetSurfer_Backend.Core.Interfaces.Repositories;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using DotNetSurfer_Backend.Core.Exceptions;
+using DotNetSurfer_Backend.Core.Interfaces.Caches;
 
 namespace DotNetSurfer_Backend.Core.Managers
 {
     public class TopicManager : BaseManager<TopicManager>, ITopicManager
     {
-        public TopicManager(IUnitOfWork unitOfWork, ILogger<TopicManager> logger)
-           : base(unitOfWork, logger)
+        public TopicManager(
+            IUnitOfWork unitOfWork,
+            ICacheDataProvider cacheDataProvider, 
+            ILogger<TopicManager> logger
+            ) : base(unitOfWork, cacheDataProvider, logger)
         {
+
         }
 
         public async Task<Topic> GetTopic(int id)

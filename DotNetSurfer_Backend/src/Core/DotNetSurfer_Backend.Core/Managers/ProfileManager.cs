@@ -6,13 +6,17 @@ using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using DotNetSurfer_Backend.Core.Exceptions;
+using DotNetSurfer_Backend.Core.Interfaces.Caches;
 
 namespace DotNetSurfer_Backend.Core.Managers
 {
     public class ProfileManager : BaseManager<ProfileManager>, IProfileManager
     {
-        public ProfileManager(IUnitOfWork unitOfWork, ILogger<ProfileManager> logger)
-           : base(unitOfWork, logger)
+        public ProfileManager(
+            IUnitOfWork unitOfWork,
+            ICacheDataProvider cacheDataProvider, 
+            ILogger<ProfileManager> logger
+            ) : base(unitOfWork, cacheDataProvider, logger)
         {
         }
 

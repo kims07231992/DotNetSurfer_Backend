@@ -8,6 +8,7 @@ using System;
 using System.Threading.Tasks;
 using DotNetSurfer_Backend.Core.Interfaces.Encryptors;
 using DotNetSurfer_Backend.Core.Exceptions;
+using DotNetSurfer_Backend.Core.Interfaces.Caches;
 
 namespace DotNetSurfer_Backend.Core.Managers
 {
@@ -17,11 +18,14 @@ namespace DotNetSurfer_Backend.Core.Managers
         private readonly ITokenGenerator _tokenGenerator;
         private readonly IConfiguration _configuration;
 
-        public UserManager(IUnitOfWork unitOfWork, 
+        public UserManager(
             IEncryptor encryptor, 
             ITokenGenerator tokenGenerator,
             IConfiguration configuration,
-            ILogger<UserManager> logger) : base(unitOfWork, logger)
+            IUnitOfWork unitOfWork,
+            ICacheDataProvider cacheDataProvider,
+            ILogger<UserManager> logger
+            ) : base(unitOfWork, cacheDataProvider, logger)
         {
             this._encryptor = encryptor;
             this._tokenGenerator = tokenGenerator;

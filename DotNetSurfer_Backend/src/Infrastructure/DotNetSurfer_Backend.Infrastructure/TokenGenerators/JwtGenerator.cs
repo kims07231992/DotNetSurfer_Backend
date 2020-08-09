@@ -39,7 +39,7 @@ namespace DotNetSurfer_Backend.Infrastructure.TokenGenerators
               issuer: this._configuration["Jwt:Issuer"],
               audience: this._configuration["Jwt:Issuer"],
               claims: claims,
-              expires: DateTime.Now.AddMinutes(Convert.ToInt32(this._configuration["Jwt:ExpireMinutes"])),
+              expires: DateTime.Now.AddMinutes(this._configuration.GetValue<int>("Jwt:ExpireMinutes")),
               signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

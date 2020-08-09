@@ -1,4 +1,5 @@
 ﻿using DotNetSurfer_Backend.Core.Exceptions;
+using DotNetSurfer_Backend.Core.Interfaces.Caches;
 using DotNetSurfer_Backend.Core.Interfaces.Managers;
 using DotNetSurfer_Backend.Core.Interfaces.Repositories;
 using Microsoft.Extensions.Logging;
@@ -9,8 +10,11 @@ namespace DotNetSurfer_Backend.Core.Managers
 {
     public class LogManager : BaseManager<LogManager>, ILogManager
     {
-        public LogManager(IUnitOfWork unitOfWork, ILogger<LogManager> logger)
-           : base(unitOfWork, logger)
+        public LogManager(
+            IUnitOfWork unitOfWork,
+            ICacheDataProvider cacheDataProvider,
+            ILogger<LogManager> logger
+            ) : base(unitOfWork, cacheDataProvider, logger)
         {
         }
 
@@ -22,7 +26,7 @@ namespace DotNetSurfer_Backend.Core.Managers
             }
             catch (Exception ex)
             {
-                throw new BaseCustomException();
+                throw new BaseCustomException(ex.Message);
             }
 
             return Task.CompletedTask;
@@ -36,7 +40,7 @@ namespace DotNetSurfer_Backend.Core.Managers
             }
             catch (Exception ex)
             {
-                throw new BaseCustomException();
+                throw new BaseCustomException(ex.Message);
             }
 
             return Task.CompletedTask;

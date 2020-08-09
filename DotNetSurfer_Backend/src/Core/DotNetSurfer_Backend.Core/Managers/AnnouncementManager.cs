@@ -4,17 +4,20 @@ using DotNetSurfer_Backend.Core.Interfaces.Repositories;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using DotNetSurfer_Backend.Core.Exceptions;
+using DotNetSurfer_Backend.Core.Interfaces.Caches;
 
 namespace DotNetSurfer_Backend.Core.Managers
 {
     public class AnnouncementManager : BaseManager<AnnouncementManager>, IAnnouncementManager
     {
-        public AnnouncementManager(IUnitOfWork unitOfWork, ILogger<AnnouncementManager> logger)
-           : base(unitOfWork, logger)
+        public AnnouncementManager(
+            IUnitOfWork unitOfWork,
+            ICacheDataProvider cacheDataProvider, 
+            ILogger<AnnouncementManager> logger
+            ) : base(unitOfWork, cacheDataProvider, logger)
         {
         }
 

@@ -1,4 +1,6 @@
 ﻿using DotNetSurfer.Core.TokenGenerators;
+using DotNetSurfer_Backend.Core.Caches;
+using DotNetSurfer_Backend.Core.Interfaces.Caches;
 using DotNetSurfer_Backend.Core.Interfaces.CDNs;
 using DotNetSurfer_Backend.Core.Interfaces.Encryptors;
 using DotNetSurfer_Backend.Core.Interfaces.Managers;
@@ -34,6 +36,7 @@ namespace DotNetSurfer_Backend.API.Helpers
         {
             services.AddSingleton<IEncryptor, HashEncryptor>();
             services.AddSingleton<ITokenGenerator, JwtGenerator>();
+            services.AddSingleton<ICacheDataProvider, CacheDataProvider>();
             services.AddScoped<ICdnHandler, AzureBlobHandler>();
             services.AddTransient<IAdminManager, AdminManager>();
             services.AddTransient<IAnnouncementManager, AnnouncementManager>();
@@ -92,11 +95,9 @@ namespace DotNetSurfer_Backend.API.Helpers
             // Session
             // Adds a default in-memory implementation of IDistributedCache.
             services.AddDistributedMemoryCache();
-
-            int sessionExpireMinutes = Convert.ToInt32(configuration["Session:ExpireMinutes"]);
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(sessionExpireMinutes);
+                options.IdleTimeout = TimeSpan.FromMinutes(configuration.GetValue<int>("Session:ExpireMinutes"));
                 options.Cookie.HttpOnly = true;
             });
         }

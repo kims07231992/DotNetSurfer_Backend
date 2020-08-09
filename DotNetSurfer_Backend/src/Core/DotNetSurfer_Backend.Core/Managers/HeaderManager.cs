@@ -8,14 +8,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using DotNetSurfer_Backend.Core.Extensions;
 using DotNetSurfer_Backend.Core.Exceptions;
+using DotNetSurfer_Backend.Core.Interfaces.Caches;
 
 namespace DotNetSurfer_Backend.Core.Managers
 {
     public class HeaderManager : BaseManager<HeaderManager>, IHeaderManager
     {
-        public HeaderManager(IUnitOfWork unitOfWork, ILogger<HeaderManager> logger)
-           : base(unitOfWork, logger)
+        public HeaderManager(
+            IUnitOfWork unitOfWork,
+            ICacheDataProvider cacheDataProvider,
+            ILogger<HeaderManager> logger
+            ) : base(unitOfWork, cacheDataProvider, logger)
         {
+
         }
 
         public async Task<IEnumerable<Header>> GetSideHeaderMenus()
@@ -24,8 +29,14 @@ namespace DotNetSurfer_Backend.Core.Managers
 
             try
             {
-                var topics = await this._unitOfWork.TopicRepository.GetSideHeaderMenusAsync();
-                sideMenus = topics?.Select(h => h.MapToDomainHeader());
+                sideMenus = await this._cacheDataProvider.TryGetHeaderMenusAsync();
+                if (sideMenus == null)
+                {
+                    var topics = await this._unitOfWork.TopicRepository.GetSideHeaderMenusAsync();
+                    sideMenus = topics?.Select(h => h.MapToDomainHeader());
+                    
+                    await _cacheDataProvider.SetHeaderMenusAsync(sideMenus);
+                }
             }
             catch (BaseCustomException ex)
             {

@@ -6,14 +6,19 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DotNetSurfer_Backend.Core.Exceptions;
+using DotNetSurfer_Backend.Core.Interfaces.Caches;
 
 namespace DotNetSurfer_Backend.Core.Managers
 {
     public class FeatureManager : BaseManager<FeatureManager>, IFeatureManager
     {
-        public FeatureManager(IUnitOfWork unitOfWork, ILogger<FeatureManager> logger)
-           : base(unitOfWork, logger)
+        public FeatureManager(
+            IUnitOfWork unitOfWork,
+            ICacheDataProvider cacheDataProvider,
+            ILogger<FeatureManager> logger
+            ) : base(unitOfWork, cacheDataProvider, logger)
         {
+
         }
 
         public async Task<IEnumerable<Feature>> GetFeaturesByFeatureType(string featureType)
@@ -28,8 +33,13 @@ namespace DotNetSurfer_Backend.Core.Managers
                     throw new CustomArgumentException($"FeatureType: {featureType}");
                 }
 
-                features = await this._unitOfWork.FeatureRepository
-                    .GetFeaturesByFeatureTypeAsync(featureTypeEnum);
+                features = await this._cacheDataProvider.TryGetFeaturesAsync(featureTypeEnum);
+                if (features == null)
+                {
+                    features = await this._unitOfWork.FeatureRepository
+                        .GetFeaturesByFeatureTypeAsync(featureTypeEnum);
+                    await _cacheDataProvider.SetFeaturesAsync(features, featureTypeEnum);
+                }
             }
             catch (BaseCustomException ex)
             {

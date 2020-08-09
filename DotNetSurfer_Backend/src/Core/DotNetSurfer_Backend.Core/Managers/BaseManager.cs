@@ -4,17 +4,23 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Security.Claims;
+using DotNetSurfer_Backend.Core.Interfaces.Caches;
 
 namespace DotNetSurfer_Backend.Core.Managers
 {
     public abstract class BaseManager<T> where T : BaseManager<T>
     {
         protected readonly IUnitOfWork _unitOfWork;
+        protected readonly ICacheDataProvider _cacheDataProvider;
         protected readonly ILogger<T> _logger;
 
-        public BaseManager(IUnitOfWork unitOfWork, ILogger<T> logger)
+        public BaseManager(
+            IUnitOfWork unitOfWork,
+            ICacheDataProvider cacheDataProvider,
+            ILogger<T> logger)
         {
             this._unitOfWork = unitOfWork;
+            this._cacheDataProvider = cacheDataProvider;
             this._logger = logger;
         }
 
