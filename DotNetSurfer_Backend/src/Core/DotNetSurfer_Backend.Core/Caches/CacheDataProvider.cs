@@ -45,7 +45,7 @@ namespace DotNetSurfer_Backend.Core.Caches
                 cacheArticleMap[pageId] = articlesByPage;
             }
 
-            var cacheOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(_cacheTime);
+            var cacheOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(_cacheTime);
             _cache.Set(CacheKeys.ArticlesByPage, cacheArticleMap, cacheOptions);
 
             return Task.CompletedTask;
@@ -61,7 +61,7 @@ namespace DotNetSurfer_Backend.Core.Caches
 
         public Task SetTopArticlesAsync(IEnumerable<Article> topArticles)
         {
-            var cacheOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(_cacheTime);
+            var cacheOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(_cacheTime);
             _cache.Set(CacheKeys.TopArticles, topArticles, cacheOptions);
 
             return Task.CompletedTask;
@@ -87,7 +87,7 @@ namespace DotNetSurfer_Backend.Core.Caches
                 : CacheKeys.BackendFeatures;
 
             var cacheOptions = new MemoryCacheEntryOptions()
-                         .SetAbsoluteExpiration(_cacheTime);
+                         .SetSlidingExpiration(_cacheTime);
             _cache.Set(cacheKey, features, cacheOptions);
 
             return Task.CompletedTask;
@@ -106,7 +106,7 @@ namespace DotNetSurfer_Backend.Core.Caches
         public Task SetHeaderMenusAsync(IEnumerable<Header> headerMenus)
         {
             var cacheOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(_cacheTime);
+                    .SetSlidingExpiration(_cacheTime);
             _cache.Set(CacheKeys.HeaderMenus, headerMenus, cacheOptions);
 
             return Task.CompletedTask;
@@ -125,7 +125,7 @@ namespace DotNetSurfer_Backend.Core.Caches
         public Task SetStatusesAsync(IEnumerable<Status> statuses)
         {
             var cacheOptions = new MemoryCacheEntryOptions()
-                   .SetAbsoluteExpiration(_cacheTime);
+                   .SetSlidingExpiration(_cacheTime);
             _cache.Set(CacheKeys.Statuses, statuses, cacheOptions);
 
             return Task.CompletedTask;
