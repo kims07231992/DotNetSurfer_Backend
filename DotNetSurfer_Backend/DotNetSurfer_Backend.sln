@@ -17,9 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetSurfer_Backend.Core",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetSurfer_Backend.API", "src\Worker\DotNetSurfer_Backend.API\DotNetSurfer_Backend.API.csproj", "{4B123904-56BE-4ADF-8AC9-F4C46F789860}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetSurfer_Backend.Test", "tests\DotNetSurfer_Backend.Test\DotNetSurfer_Backend.Test.csproj", "{E41B391B-AC76-45CA-983F-F43D006AD51E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetSurfer_Backend.Test", "tests\DotNetSurfer_Backend.Test\DotNetSurfer_Backend.Test.csproj", "{E41B391B-AC76-45CA-983F-F43D006AD51E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4FA723D7-9CCB-4282-BFB3-390CEB29E6D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{C248AB9E-0089-4334-93C8-F976862901AE}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DotNetSurfer_Backend.Database", "database\DotNetSurfer_Backend.Database\DotNetSurfer_Backend.Database.sqlproj", "{22769F7A-BB91-41EE-BD2F-B443A75F213C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +47,12 @@ Global
 		{E41B391B-AC76-45CA-983F-F43D006AD51E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E41B391B-AC76-45CA-983F-F43D006AD51E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E41B391B-AC76-45CA-983F-F43D006AD51E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22769F7A-BB91-41EE-BD2F-B443A75F213C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22769F7A-BB91-41EE-BD2F-B443A75F213C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22769F7A-BB91-41EE-BD2F-B443A75F213C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{22769F7A-BB91-41EE-BD2F-B443A75F213C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22769F7A-BB91-41EE-BD2F-B443A75F213C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22769F7A-BB91-41EE-BD2F-B443A75F213C}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +65,7 @@ Global
 		{625BE8F0-3F79-403C-912F-E36F39263C4B} = {81D8841B-1622-42CC-A589-900F59AF2FBF}
 		{4B123904-56BE-4ADF-8AC9-F4C46F789860} = {58857DDF-ADF6-4241-A2DB-9145D6E86B56}
 		{E41B391B-AC76-45CA-983F-F43D006AD51E} = {4FA723D7-9CCB-4282-BFB3-390CEB29E6D9}
+		{22769F7A-BB91-41EE-BD2F-B443A75F213C} = {C248AB9E-0089-4334-93C8-F976862901AE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {236446A3-F0E3-49C2-8085-A30B8A5E0084}

@@ -1,0 +1,13 @@
+﻿CREATE TABLE [dbo].[Features]
+(
+	[FeatureId] INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
+	[FeatureType] NVARCHAR(100) NOT NULL,
+	[Name] NVARCHAR(50) NULL,
+	[Description] NVARCHAR(200) NULL,
+	[Version] NVARCHAR(100) NULL,
+	[GithubUrl] NVARCHAR(2083),
+	[DocumentUrl] NVARCHAR(2083),
+	[GuideUrl] NVARCHAR(2083),
+	[ShowFlag] BIT NOT NULL DEFAULT 1
+);
+GO
