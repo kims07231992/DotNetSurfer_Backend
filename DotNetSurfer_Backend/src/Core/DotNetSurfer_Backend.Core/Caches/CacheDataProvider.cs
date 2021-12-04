@@ -66,6 +66,13 @@ namespace DotNetSurfer_Backend.Core.Caches
 
             return Task.CompletedTask;
         }
+
+        public Task ClearArticlesByPageAsync()
+        {
+            _cache.Remove(CacheKeys.ArticlesByPage);
+
+            return Task.CompletedTask;
+        }
         #endregion
 
         #region Features

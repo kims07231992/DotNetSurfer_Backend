@@ -9,6 +9,7 @@ namespace DotNetSurfer_Backend.Core.Interfaces.Caches
         #region Articles
         Task<IEnumerable<Article>> TryGetArticlesByPageAsync(int pageId);
         Task SetArticlesByPageAsync(IEnumerable<Article> articlesByPage, int pageId);
+        Task ClearArticlesByPageAsync();
         Task<IEnumerable<Article>> TryGetTopArticlesAsync();
         Task SetTopArticlesAsync(IEnumerable<Article> topArticles);
         #endregion

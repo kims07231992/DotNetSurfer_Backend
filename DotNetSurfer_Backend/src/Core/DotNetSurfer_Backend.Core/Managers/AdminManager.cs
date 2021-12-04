@@ -137,6 +137,9 @@ namespace DotNetSurfer_Backend.Core.Managers
 
                 this._unitOfWork.ArticleRepository.Update(article);
                 await this._unitOfWork.ArticleRepository.SaveAsync();
+
+                // Clear cache to apply update
+                await this._cacheDataProvider.ClearArticlesByPageAsync();
             }
             catch (BaseCustomException ex)
             {
@@ -156,6 +159,9 @@ namespace DotNetSurfer_Backend.Core.Managers
             {
                 this._unitOfWork.ArticleRepository.Create(article);
                 await this._unitOfWork.ArticleRepository.SaveAsync();
+
+                // Clear cache to apply update
+                await this._cacheDataProvider.ClearArticlesByPageAsync();
             }
             catch (BaseCustomException ex)
             {
@@ -190,6 +196,9 @@ namespace DotNetSurfer_Backend.Core.Managers
 
                 this._unitOfWork.ArticleRepository.Delete(entityModel);
                 await this._unitOfWork.ArticleRepository.SaveAsync();
+
+                // Clear cache to apply update
+                await this._cacheDataProvider.ClearArticlesByPageAsync();
             }
             catch (BaseCustomException ex)
             {
